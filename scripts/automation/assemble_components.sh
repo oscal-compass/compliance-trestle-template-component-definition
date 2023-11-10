@@ -1,14 +1,12 @@
+#!/bin/bash
+
+source config.env
+
 version_tag=$1
-for d in ./component-definitions/* ; do
-    compdef=$(basename "$d")
-    if [ "$compdef" != "IBM_FS_FR_COMBINED" ]; then
-       echo "Assembling ${compdef}" 
-       if [ "$1" != "" ]; then 
-          trestle author component-assemble --name $compdef --markdown md_components/$compdef --output $compdef --version $version_tag 
-       else
-          trestle author component-assemble --name $compdef --markdown md_components/$compdef --output $compdef 
-       fi
-    else 
-       echo "Skipping ${compdef}"
-    fi 
-done
+if [ ${version_tag} != "" ]; then 
+	echo "Assembling ${COMPONENT_DEFINITION} with version ${version_tag}"
+	trestle author component-assemble --markdown md_components/$COMPONENT_DEFINITION --output $COMPONENT_DEFINITION --version $version_tag 
+else
+	echo "Assembling ${COMPONENT_DEFINITION}"
+	trestle author component-assemble --markdown md_components/$COMPONENT_DEFINITION --output $COMPONENT_DEFINITION
+fi

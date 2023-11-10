@@ -1,9 +1,6 @@
-for d in ./component-definitions/* ; do
-    compdef=$(basename "$d")
-    if [ "$compdef" != "IBM_FS_FR_COMBINED" ]; then
-       echo "Regenerating ${compdef}" 
-       trestle author component-generate --output md_components/$compdef --name $compdef
-    else 
-       echo "Skipping ${compdef}"
-    fi 
-done
+#!/bin/bash
+
+source config.env
+
+echo "Regenerating ${COMPONENT_DEFINITION}" 
+trestle author component-generate --name $COMPONENT_DEFINITION --output md_components/$COMPONENT_DEFINITION

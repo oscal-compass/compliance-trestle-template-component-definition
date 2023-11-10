@@ -1,6 +1,5 @@
 #!/bin/bash
 
-git clone https://github.com/IBM/compliance-trestle
-cd compliance-trestle
-git checkout develop
-make develop
+python3 -m pip install --upgrade pip setuptools
+python3 -m pip install compliance-trestle
+python3 -m pip install python-semantic-release==7.31.4
