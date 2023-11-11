@@ -29,7 +29,7 @@ function github-branch-commit() {
         return 1
     fi
 
-    if ! git add components; then
+    if ! git add component-definitions; then
         err "failed to add modified files to git index"
         return 1
     fi
@@ -66,7 +66,7 @@ function github-branch-commit() {
     
     local remote=origin
     if [[ $GIT_TOKEN ]]; then
-        remote=$URL_PROFILE
+        remote=$URL_COMPONENT_DEFINITION
     fi
     if [[ $GIT_BRANCH != main ]] && [[ $GIT_BRANCH != develop ]]; then
         msg "not pushing updates to branch $GIT_BRANCH"

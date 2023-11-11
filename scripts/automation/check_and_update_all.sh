@@ -48,6 +48,7 @@ done
 
 if [[ $csv_changed = true ]]; then
     echo "CSV file(s) were changed, generating component JSON and regenerating markdowns..."
+    echo "trestle task csv-to-oscal-cd -c data/csv-to-oscal-cd.config"
     trestle task csv-to-oscal-cd -c data/csv-to-oscal-cd.config
     ./scripts/automation/regenerate_components.sh
 fi
