@@ -86,4 +86,12 @@ function err() {
     msg "$*" 1>&2
 }
 
-github-branch-commit
+COUNT_COMPONENT_DEFINITIONS=$(ls -l component-definitions | grep ^- | wc -l)
+COUNT_COMPONENT_DEFINITIONS_MD=$(ls -l md_components | grep ^- | wc -l)
+if [ "$COUNT_COMPONENT_DEFINITIONS" == "0" ] || [ "$COUNT_COMPONENT_DEFINITIONS_MD" == "0" ]
+then
+    echo "no component-definition or markdown present -> nothing to do"
+else
+	github-branch-commit
+fi
+
