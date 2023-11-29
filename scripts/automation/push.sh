@@ -86,8 +86,8 @@ function err() {
     msg "$*" 1>&2
 }
 
-COUNT_COMPONENT_DEFINITIONS=$(ls -l component-definitions | grep ^- | wc -l)
-COUNT_COMPONENT_DEFINITIONS_MD=$(ls -l md_components | grep ^- | wc -l)
+COUNT_COMPONENT_DEFINITIONS=$(ls -1 component-definitions | wc -l)
+COUNT_COMPONENT_DEFINITIONS_MD=$(ls -1 md_components | wc -l)
 if [ "$COUNT_COMPONENT_DEFINITIONS" == "0" ] || [ "$COUNT_COMPONENT_DEFINITIONS_MD" == "0" ]
 then
     echo "no component-definition or markdown present -> nothing to do"
