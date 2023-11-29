@@ -46,6 +46,8 @@ for val in ${CHANGES[@]} ; do
   fi
 done
 
+echo "csv_changed = $csv_changed, md_changed = $md_changed, json_changed = $json_changed"
+
 if [[ $csv_changed = true ]]; then
     echo "CSV file(s) were changed, generating component JSON and regenerating markdowns..."
     echo "trestle task csv-to-oscal-cd -c data/csv-to-oscal-cd.config"
@@ -73,6 +75,3 @@ if [[ $md_changed = true ]]; then
     echo "Md file(s) were changed, assembling markdowns..."
     ./scripts/automation/assemble_components.sh
 fi
-
-
-echo "$md_changed $json_changed $csv_changed"
