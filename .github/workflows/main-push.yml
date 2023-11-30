@@ -64,7 +64,17 @@ jobs:
       cancel-in-progress: true
     if: github.ref == 'refs/heads/main'
     steps:
-    - uses: tukasz/direct-merge-action@master
+    - name: Determine initialization status
+      id: determine_initialization_status
+      run: |
+        set +e
+        bash scripts/automation/check_component_definition.sh
+        exitcode="$?"
+        echo "exitcode: $exitcode"
+        echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+    - name: Chore merge back
+      if: steps.determine_initialization_status.outputs.exitcode == '1'
+      uses: tukasz/direct-merge-action@master
       with:
         GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         source-branch: main
