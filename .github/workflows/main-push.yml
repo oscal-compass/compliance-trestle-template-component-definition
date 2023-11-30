@@ -46,8 +46,8 @@ jobs:
       if: steps.determine_initialization_status.outputs.exitcode == '1'
       uses: actions/checkout@v2
       with:
-        repository: my-repo-base/my-component-definition
-        path: './my-component-definition'
+        repository: my-repo-base/my-system-security-plan
+        path: './my-system-security-plan'
         token: ${{ secrets.GIT_TOKEN }}
         fetch-depth: 0
     - name: Update downstream
