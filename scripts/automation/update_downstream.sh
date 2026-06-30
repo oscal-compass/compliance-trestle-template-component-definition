@@ -6,9 +6,9 @@ export COMMIT_TITLE="chore: Components automatic update."
 export COMMIT_BODY="Sync components with $PROFILE repo"
 git config --global user.email "$EMAIL"
 git config --global user.name "$NAME"
-cd "$REPO_COMPONENT_DEFINITION"
+cd "$REPO_SYSTEM_SECURITY_PLAN"
 git checkout -b "components_autoupdate_$GITHUB_RUN_ID"
-cp -r ../components-definitions .
+cp -r ../component-definitions .
 if [ -z "$(git status --porcelain)" ]; then 
   echo "Nothing to commit"
 else
@@ -17,7 +17,7 @@ else
      echo "Nothing to commit"
   else
      git commit --message "$COMMIT_TITLE"
-     remote=$URL_COMPONENT_DEFINITION
+     remote=$URL_SYSTEM_SECURITY_PLAN
      git push -u "$remote" "components_autoupdate_$GITHUB_RUN_ID"
      echo $COMMIT_BODY
      gh pr create -t "$COMMIT_TITLE" -b "$COMMIT_BODY" -B "develop" -H "components_autoupdate_$GITHUB_RUN_ID" 
