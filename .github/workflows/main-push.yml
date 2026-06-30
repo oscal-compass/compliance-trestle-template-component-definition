@@ -35,7 +35,9 @@ jobs:
       with:
         fetch-depth: 0
         ref: main
-        token: ${{ secrets.GIT_TOKEN }}
+        # GIT_TOKEN (PAT) is used in configured instance repos for private repo access and push auth.
+        # Fallback to github.token allows the template repo itself to pass checkout without a secret set.
+        token: ${{ secrets.GIT_TOKEN || github.token }}
     - name: Determine initialization status
       id: determine_initialization_status
       run: |
@@ -68,7 +70,9 @@ jobs:
     steps:
     - uses: tukasz/direct-merge-action@master
       with:
-        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        # GIT_TOKEN (PAT) is used in configured instance repos to push the merge to develop.
+        # Fallback to github.token allows the template repo itself to pass without a secret set.
+        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN || github.token }}
         source-branch: main
         target-branch: develop
         commit-message: "chore: Merge back version tags and changelog into develop."
