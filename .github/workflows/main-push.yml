@@ -8,13 +8,15 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: true
         fetch-depth: 0
-        token: ${{ secrets.GIT_TOKEN }}
+        # GIT_TOKEN (PAT) is used in configured instance repos for private repo access and push auth.
+        # Fallback to github.token allows the template repo itself to pass checkout without a secret set.
+        token: ${{ secrets.GIT_TOKEN || github.token }}
     - name: Set up Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9
     - name: Install Trestle
@@ -29,7 +31,7 @@ jobs:
     needs: release
     steps:
     - name: Clone branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         ref: main
@@ -44,7 +46,7 @@ jobs:
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
     - name: Clone downstream repo
       if: steps.determine_initialization_status.outputs.exitcode == '1'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: my-repo-base/my-system-security-plan
         path: './my-system-security-plan'
