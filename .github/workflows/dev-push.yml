@@ -12,9 +12,7 @@ jobs:
       with:
         submodules: true
         fetch-depth: 2
-        # GIT_TOKEN (PAT) is used in configured instance repos for private repo access and push auth.
-        # Fallback to github.token allows the template repo itself to pass checkout without a secret set.
-        token: ${{ secrets.GIT_TOKEN || github.token }}
+        token: ${{ secrets.GIT_TOKEN }}
     - name: Set up Python 3.9
       uses: actions/setup-python@v5
       with:
